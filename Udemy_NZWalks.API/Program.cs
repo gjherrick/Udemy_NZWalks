@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Udemy_NZWalks.API.Data;
+using Udemy_NZWalks.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,9 @@ builder.Services.AddSwaggerGen();
 //injecting a new service, injects DBContext class 
 builder.Services.AddDbContext<Udemy_NZWalksDBContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("NZWalksConnectionString")));
+
+builder.Services.AddScoped<iRegionRepository, SQLRegionRepository>(); //injects the iregion rep with the sql region rep.
+//now have to inject the sql into the constructor 
 
 var app = builder.Build();
 
